@@ -17,6 +17,14 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
+*.pkl.go
+
 # Go workspace file
 go.work
 go.work.sum
+
+dist/
+
+# Jetbrains products
+.idea/
+.fleet/

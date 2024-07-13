@@ -1,0 +1,2 @@
+GET http://localhost:3498/pet/findByStatus
+Host: petstore

@@ -1,0 +1,26 @@
+amends "assets/AppConfig.pkl"
+
+domains {
+  ["localhost:3498"] = new PlainRuleSpec {
+    rules = Set(
+      #"http.Method("GET") -> http.Path("/api/v1/account/42") => File("testdata/sample.json", "application/json")"#,
+      #"http.Method("POST") -> http.Path("/api/v1/account/42/withdraw") => Json(`{"name":"Ted.Tester"}`)"#
+      // For now we're skipping JS support
+      // #"http.Method("GET") -> http.Path("/api/v1/account/42/withdraw") => JSFile("testdata/scripts/account_withdraw.js")"#
+    )
+  }
+
+  ["v3.petstore"] = new OpenApiSpec {
+    schemaPath = "testdata/petstore_v3.yaml"
+  }
+
+  ["v2.petstore"] = new OpenApiSpec {
+    schemaPath = "testdata/petstore_v2.yaml"
+  }
+}
+
+telemetry {
+  logging {
+    format = "text"
+  }
+}

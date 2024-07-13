@@ -1,0 +1,10 @@
+services:
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:8.0.0
+    ports:
+      - published: 18888
+        target: 18888
+        protocol: tcp
+      - published: 4317
+        target: 18889
+        protocol: tcp
