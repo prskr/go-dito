@@ -22,6 +22,7 @@ import (
 	"github.com/prskr/go-dito/core/ports"
 	http2 "github.com/prskr/go-dito/handlers/http"
 	"github.com/prskr/go-dito/infrastructure/config"
+	"github.com/prskr/go-dito/internal/maps"
 )
 
 var _ ports.SpecParser = (*OpenAPISpecParser)(nil)
@@ -100,30 +101,26 @@ func (o OpenAPISpecParser) Handler(ctx context.Context) (http.Handler, error) {
 }
 
 func (o OpenAPISpecParser) handleV3(ctx context.Context, mux *http.ServeMux, model *libopenapi.DocumentModel[v3.Document]) error {
-	for kv := model.Model.Paths.PathItems.First(); kv != nil; kv = kv.Next() {
-		path := kv.Key()
-
+	for path, ops := range maps.Iter(model.Model.Paths.PathItems) {
 		logger := slog.Default().With(slog.String("api", model.Model.Info.Title), slog.String("path", path))
 
-		for opKv := kv.Value().GetOperations().First(); opKv != nil; opKv = opKv.Next() {
-			httpMethod := opKv.Key()
-
+		for httpMethod, operation := range maps.Iter(ops.GetOperations()) {
 			logger = logger.With(slog.String("http_method", httpMethod))
 
 			pattern := fmt.Sprintf("%s %s", strings.ToUpper(httpMethod), path)
 
-			operation := opKv.Value()
 			response := operation.Responses.Default
 			if response == nil {
-				for respKv := operation.Responses.Codes.First(); respKv != nil; respKv = respKv.Next() {
-					statusCode, err := strconv.ParseInt(respKv.Key(), 10, 32)
+
+				for rawStatus, responseValue := range maps.Iter(operation.Responses.Codes) {
+					statusCode, err := strconv.ParseInt(rawStatus, 10, 32)
 					if err != nil {
-						logger.Warn("Failed to parse response status code", slog.String("status_code", respKv.Key()))
+						logger.Warn("Failed to parse response status code", slog.String("status_code", rawStatus))
 						continue
 					}
 
 					if statusCode >= http.StatusOK && statusCode < http.StatusMultipleChoices {
-						mediaType, present := respKv.Value().Content.Get(contentType)
+						mediaType, present := responseValue.Content.Get(contentType)
 						if !present {
 							logger.Warn("No JSON response defined")
 							continue
@@ -168,25 +165,21 @@ func (o OpenAPISpecParser) handleV2(ctx context.Context, mux *http.ServeMux) err
 		return errors.Join(errs...)
 	}
 
-	for kv := model.Model.Paths.PathItems.First(); kv != nil; kv = kv.Next() {
-		path := kv.Key()
-
+	for path, ops := range maps.Iter(model.Model.Paths.PathItems) {
 		logger := slog.Default().With(slog.String("api", model.Model.Info.Title), slog.String("path", path))
 
-		for opKv := kv.Value().GetOperations().First(); opKv != nil; opKv = opKv.Next() {
-			httpMethod := opKv.Key()
-
+		for httpMethod, operation := range maps.Iter(ops.GetOperations()) {
 			logger = logger.With(slog.String("http_method", httpMethod))
 
 			pattern := fmt.Sprintf("%s %s", strings.ToUpper(httpMethod), path)
 
-			operation := opKv.Value()
 			response := operation.Responses.Default
 			if response == nil {
-				for respKv := operation.Responses.Codes.First(); respKv != nil; respKv = respKv.Next() {
-					statusCode, err := strconv.ParseInt(respKv.Key(), 10, 32)
+
+				for rawStatus, responseValue := range maps.Iter(operation.Responses.Codes) {
+					statusCode, err := strconv.ParseInt(rawStatus, 10, 32)
 					if err != nil {
-						logger.Warn("Failed to parse response status code", slog.String("status_code", respKv.Key()))
+						logger.Warn("Failed to parse response status code", slog.String("status_code", rawStatus))
 						continue
 					}
 
@@ -201,13 +194,12 @@ func (o OpenAPISpecParser) handleV2(ctx context.Context, mux *http.ServeMux) err
 								attribute.StringSlice("tags", operation.Tags),
 							),
 						)
-						responseValue := respKv.Value()
 
 						if responseValue.Examples == nil {
 							logger.Info("Configuring mock handler")
 							mockHandler := http2.OASSchemaMockHandler{
 								MockGenerator: o.MockGenerator,
-								Schema:        respKv.Value().Schema.Schema(),
+								Schema:        responseValue.Schema.Schema(),
 								Status:        int(statusCode),
 							}
 
