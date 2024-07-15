@@ -1,6 +1,6 @@
 services:
   aspire-dashboard:
-    image: mcr.microsoft.com/dotnet/aspire-dashboard:8.0.0
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:8.0.2
     ports:
       - published: 18888
         target: 18888
