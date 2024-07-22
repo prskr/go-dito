@@ -99,6 +99,8 @@ github.com/pb33f/libopenapi v0.16.8 h1:EceJ+JTHViwjKNyP3LJ8J39jSQ4F2oOvHw6KfWCcV
 github.com/pb33f/libopenapi v0.16.8/go.mod h1:PEXNwvtT4KNdjrwudp5OYnD1ryqK6uJ68aMNyWvoMuc=
 github.com/pb33f/libopenapi-validator v0.0.56 h1:kYO8DRsSRpnxhUExuEfsgARuT/hkc/ISC77CX0BMze4=
 github.com/pb33f/libopenapi-validator v0.0.56/go.mod h1:Cwdf0GUmnUrbw1LBpcGV1Wx5q/LC9akREV4Jc6/yJDc=
+github.com/pb33f/libopenapi-validator v0.1.0 h1:3XvtjtsMwPDM3qsC7ITrwVAzCLvOxKZLVKBukVBSRmY=
+github.com/pb33f/libopenapi-validator v0.1.0/go.mod h1:Cwdf0GUmnUrbw1LBpcGV1Wx5q/LC9akREV4Jc6/yJDc=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/prometheus/client_golang v1.19.1 h1:wZWJDwK+NameRJuPGDhlnFgx8e8HN3XHQeLaYJFJBOE=
