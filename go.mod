@@ -7,7 +7,7 @@ require (
 	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/apple/pkl-go v0.8.0
 	github.com/ohler55/ojg v1.23.0
-	github.com/pb33f/libopenapi v0.16.8
+	github.com/pb33f/libopenapi v0.16.14
 	github.com/pb33f/libopenapi-validator v0.0.56
 	github.com/stretchr/testify v1.9.0
 	go.opentelemetry.io/contrib/exporters/autoexport v0.53.0
