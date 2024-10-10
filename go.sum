@@ -8,6 +8,8 @@ github.com/alecthomas/repr v0.4.0 h1:GhI2A8MACjfegCPVq9f1FLvIBS+DrQ2KQBFZP1iFzXc
 github.com/alecthomas/repr v0.4.0/go.mod h1:Fr0507jx4eOXV7AlPV6AVZLYrLIuIeSOWtW57eE/O/4=
 github.com/apple/pkl-go v0.8.0 h1:GRcBvFWeXjT9rc7A5gHK89qrel2wGZ3/a7ge4rPlT5M=
 github.com/apple/pkl-go v0.8.0/go.mod h1:5Hwil5tyZGrOekh7JXLZJvIAcGHb4gT19lnv4WEiKeI=
+github.com/apple/pkl-go v0.8.1 h1:C7Z2MJAJX8bVPmk4ZL8I7tpMnuw+tLcwQ6jeR7/BYXs=
+github.com/apple/pkl-go v0.8.1/go.mod h1:5Hwil5tyZGrOekh7JXLZJvIAcGHb4gT19lnv4WEiKeI=
 github.com/bahlo/generic-list-go v0.2.0 h1:5sz/EEAK+ls5wF+NeqDpk5+iNdMDXrh3z3nPnH1Wvgk=
 github.com/bahlo/generic-list-go v0.2.0/go.mod h1:2KvAjgMlE5NNynlg/5iLrrCCZ2+5xWbdbCW3pNTGyYg=
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
