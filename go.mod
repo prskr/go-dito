@@ -3,7 +3,7 @@ module github.com/prskr/go-dito
 go 1.22.4
 
 require (
-	github.com/alecthomas/kong v0.9.0
+	github.com/alecthomas/kong v1.4.0
 	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/apple/pkl-go v0.8.0
 	github.com/ohler55/ojg v1.23.0
