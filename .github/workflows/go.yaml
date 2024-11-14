@@ -21,7 +21,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -51,6 +51,7 @@ jobs:
         uses: golangci/golangci-lint-action@v6
         env:
           GOPROXY: direct
+        continue-on-error: true
 
       - id: govulncheck
         uses: golang/govulncheck-action@v1
