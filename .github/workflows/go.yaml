@@ -21,7 +21,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -47,13 +47,6 @@ jobs:
           go mod download -modfile tools/go.mod
           go generate -x ./...
 
-      - name: Build
-        uses: goreleaser/goreleaser-action@v6
-        with:
-          distribution: goreleaser
-          version: latest
-          args: build --snapshot
-
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v6
         env:
@@ -74,3 +67,11 @@ jobs:
       - name: Test
         run: |
           gotestsum --format pkgname -- -race -shuffle=on -covermode=atomic ./...
+
+      - name: Build
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: latest
+          args: build --snapshot
+        if: "!startsWith(github.ref, 'refs/tags/v')"
