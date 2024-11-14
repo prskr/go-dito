@@ -28,3 +28,9 @@ dist/
 # Jetbrains products
 .idea/
 .fleet/
+
+# Zed
+.zed/
+
+# Python
+.venv/
