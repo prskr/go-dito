@@ -1,0 +1,17 @@
+site_name: go-dito docs
+site_url: https://docs.dito.icb4dc0.de
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - search.suggest
+plugins:
+  - search
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting_started/installation.md
+      - Configuration: getting_started/configuration.md
+  - DSL:
+      - Matchers: dsl/matchers.md
