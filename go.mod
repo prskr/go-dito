@@ -10,7 +10,7 @@ require (
 	github.com/apple/pkl-go v0.8.1
 	github.com/ohler55/ojg v1.25.0
 	github.com/pb33f/libopenapi v0.18.6
-	github.com/pb33f/libopenapi-validator v0.0.56
+	github.com/pb33f/libopenapi-validator v0.2.2
 	github.com/stretchr/testify v1.9.0
 	go.opentelemetry.io/contrib/exporters/autoexport v0.57.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.57.0
@@ -45,6 +45,7 @@ require (
 	github.com/prometheus/common v0.60.1 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/santhosh-tekuri/jsonschema/v5 v5.3.1 // indirect
+	github.com/santhosh-tekuri/jsonschema/v6 v6.0.1 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect
