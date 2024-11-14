@@ -47,7 +47,7 @@ jobs:
           go mod download -modfile tools/go.mod
           go generate -x ./...
 
-      - name: Release
+      - name: Build
         uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
@@ -65,6 +65,7 @@ jobs:
         with:
           go-version-file: go.mod
           go-package: ./...
+          repo-checkout: false
 
       - name: Install goteestsum
         run: |
