@@ -11,7 +11,7 @@ require (
 	github.com/ohler55/ojg v1.25.0
 	github.com/pb33f/libopenapi v0.18.6
 	github.com/pb33f/libopenapi-validator v0.2.2
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/contrib/exporters/autoexport v0.57.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.57.0
 	go.opentelemetry.io/otel v1.32.0
