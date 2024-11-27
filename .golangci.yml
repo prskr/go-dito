@@ -49,8 +49,6 @@ linters:
     - exhaustive
     - funlen
     - gocheckcompilerdirectives
-    - gochecknoglobals
-    - gochecknoinits
     - gocognit
     - goconst
     - gocritic
