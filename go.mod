@@ -11,14 +11,14 @@ require (
 	github.com/ohler55/ojg v1.25.0
 	github.com/pb33f/libopenapi v0.18.6
 	github.com/pb33f/libopenapi-validator v0.2.2
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/contrib/exporters/autoexport v0.57.0
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.57.0
-	go.opentelemetry.io/otel v1.32.0
-	go.opentelemetry.io/otel/metric v1.32.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.58.0
+	go.opentelemetry.io/otel v1.33.0
+	go.opentelemetry.io/otel/metric v1.33.0
 	go.opentelemetry.io/otel/sdk v1.32.0
 	go.opentelemetry.io/otel/sdk/metric v1.32.0
-	go.opentelemetry.io/otel/trace v1.32.0
+	go.opentelemetry.io/otel/trace v1.33.0
 )
 
 require (
@@ -48,6 +48,7 @@ require (
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.9-0.20240815153524-6ea36470d1bd // indirect
+	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/contrib/bridges/prometheus v0.57.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploggrpc v0.8.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp v0.8.0 // indirect
