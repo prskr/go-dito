@@ -9,9 +9,9 @@ require (
 	github.com/alecthomas/participle/v2 v2.1.1
 	github.com/apple/pkl-go v0.8.1
 	github.com/ohler55/ojg v1.25.0
-	github.com/pb33f/libopenapi v0.18.6
-	github.com/pb33f/libopenapi-validator v0.2.2
-	github.com/stretchr/testify v1.9.0
+	github.com/pb33f/libopenapi v0.19.1
+	github.com/pb33f/libopenapi-validator v0.3.0
+	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/contrib/exporters/autoexport v0.57.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.57.0
 	go.opentelemetry.io/otel v1.32.0
@@ -65,7 +65,7 @@ require (
 	go.opentelemetry.io/proto/otlp v1.3.1 // indirect
 	golang.org/x/net v0.30.0 // indirect
 	golang.org/x/sys v0.27.0 // indirect
-	golang.org/x/text v0.20.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20241104194629-dd2ea8efbc28 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20241104194629-dd2ea8efbc28 // indirect
 	google.golang.org/grpc v1.68.0 // indirect
