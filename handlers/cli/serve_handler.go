@@ -18,6 +18,7 @@ import (
 	"go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.10.0"
 
+	"github.com/prskr/go-dito/core/ports"
 	"github.com/prskr/go-dito/core/services"
 	http2 "github.com/prskr/go-dito/handlers/http"
 	"github.com/prskr/go-dito/infrastructure/config"
@@ -25,16 +26,25 @@ import (
 	"github.com/prskr/go-dito/infrastructure/logging"
 )
 
-type ServeHandler struct {
-}
+type ServeHandler struct{}
 
-func (h *ServeHandler) Run(ctx context.Context, cfg *config.AppConfig, logger *slog.Logger) error {
+func (h *ServeHandler) Run(
+	ctx context.Context,
+	cfg *config.AppConfig,
+	logger *slog.Logger,
+	cwd ports.CWD,
+) error {
 	domainHandler := make(http2.DomainHandler)
 
 	for d, a := range cfg.Domains {
 		parser, err := services.DefaultRegistry.ParserFor(a)
 		if err != nil {
 			return err
+		}
+
+		// inject dependencies
+		if cwdInjectable, ok := parser.(ports.CwdInjectable); ok {
+			cwdInjectable.InjectCwd(cwd)
 		}
 
 		if handler, err := parser.Handler(ctx); err != nil {

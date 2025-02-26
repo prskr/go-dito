@@ -111,7 +111,6 @@ func (o OpenAPISpecParser) handleV3(ctx context.Context, mux *http.ServeMux, mod
 
 			response := operation.Responses.Default
 			if response == nil {
-
 				for rawStatus, responseValue := range maps.Iter(operation.Responses.Codes) {
 					statusCode, err := strconv.ParseInt(rawStatus, 10, 32)
 					if err != nil {
@@ -175,7 +174,6 @@ func (o OpenAPISpecParser) handleV2(ctx context.Context, mux *http.ServeMux) err
 
 			response := operation.Responses.Default
 			if response == nil {
-
 				for rawStatus, responseValue := range maps.Iter(operation.Responses.Codes) {
 					statusCode, err := strconv.ParseInt(rawStatus, 10, 32)
 					if err != nil {

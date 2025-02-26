@@ -49,10 +49,13 @@ linters:
     - exhaustive
     - funlen
     - gocheckcompilerdirectives
+    - gochecknoglobals
+    - gochecknoinits
     - gocognit
     - goconst
     - gocritic
     - gocyclo
+    - goerr113
     - gofumpt
     - goimports
     - gosec
@@ -84,13 +87,15 @@ issues:
   exclude-rules:
     - path: _test\.go
       linters:
-        - err113
         - funlen
         - cyclop
         - gocognit
+        - goerr113
+        - gochecknoinits
         - gochecknoglobals
 
 run:
   skip-files: []
   modules-download-mode: readonly
   timeout: 5m
+  allow-parallel-runners: true

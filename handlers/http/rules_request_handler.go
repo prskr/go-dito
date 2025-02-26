@@ -31,3 +31,13 @@ func (r RulesRequestHandler) Handle(writer http.ResponseWriter, ir *domain.Incom
 
 	return false
 }
+
+func (r RulesRequestHandler) Init(cwd ports.CWD) {
+	if cwdInjectable, ok := r.Matcher.(ports.CwdInjectable); ok {
+		cwdInjectable.InjectCwd(cwd)
+	}
+
+	if cwdInjectable, ok := r.ResponseProvider.(ports.CwdInjectable); ok {
+		cwdInjectable.InjectCwd(cwd)
+	}
+}

@@ -1,0 +1,60 @@
+{
+  "data": {
+    "allFilms": {
+      "films": [
+        {
+          "director": "George Lucas",
+          "title": "A New Hope",
+          "created": "2014-12-10T14:23:31.880000Z",
+          "producers": [
+            "Gary Kurtz",
+            "Rick McCallum"
+          ]
+        },
+        {
+          "director": "Irvin Kershner",
+          "title": "The Empire Strikes Back",
+          "created": "2014-12-12T11:26:24.656000Z",
+          "producers": [
+            "Gary Kurtz",
+            "Rick McCallum"
+          ]
+        },
+        {
+          "director": "Richard Marquand",
+          "title": "Return of the Jedi",
+          "created": "2014-12-18T10:39:33.255000Z",
+          "producers": [
+            "Howard G. Kazanjian",
+            "George Lucas",
+            "Rick McCallum"
+          ]
+        },
+        {
+          "director": "George Lucas",
+          "title": "The Phantom Menace",
+          "created": "2014-12-19T16:52:55.740000Z",
+          "producers": [
+            "Rick McCallum"
+          ]
+        },
+        {
+          "director": "George Lucas",
+          "title": "Attack of the Clones",
+          "created": "2014-12-20T10:57:57.886000Z",
+          "producers": [
+            "Rick McCallum"
+          ]
+        },
+        {
+          "director": "George Lucas",
+          "title": "Revenge of the Sith",
+          "created": "2014-12-20T18:49:38.403000Z",
+          "producers": [
+            "Rick McCallum"
+          ]
+        }
+      ]
+    }
+  }
+}
