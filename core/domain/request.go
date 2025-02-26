@@ -2,6 +2,7 @@ package domain
 
 import (
 	"bytes"
+	"context"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -195,4 +196,8 @@ func (i *IncomingRequest) ParseForm() error {
 	i.PostForm = i.Original.PostForm
 
 	return nil
+}
+
+func (i *IncomingRequest) Context() context.Context {
+	return i.Original.Context()
 }

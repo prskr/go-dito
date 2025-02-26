@@ -9,7 +9,7 @@ class HttpServerOptions {
 }
 
 class HttpRequestOptions {
-  maxBodySize: DataSize = 100.kb
+  maxBodySize: DataSize = 500.kb
 }
 
 typealias Port = UInt16(this > 0)
@@ -42,8 +42,13 @@ class OpenApiSpec {
   schemaPath: String
 }
 
+class GraphSchemaSource {
+  path: String
+  builtIn: Boolean = false
+}
+
 class GraphQlSpec {
-  schemaPath: String
+  schemas: Set<GraphSchemaSource>
   rules: Set<Rule>
 }
 

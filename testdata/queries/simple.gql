@@ -1,0 +1,10 @@
+query {
+    allFilms {
+        films {
+            director
+            title
+            created
+            producers
+        }
+    }
+}

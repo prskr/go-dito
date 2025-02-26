@@ -17,6 +17,7 @@ var (
 func init() {
 	RegisterAt(&DefaultRegistry, NewOpenAPISpecParser)
 	RegisterAt(&DefaultRegistry, NewPlainRuleSpecParser)
+	RegisterAt(&DefaultRegistry, NewGraphQLSchemaSpec)
 }
 
 type ParserRegistry map[reflect.Type]func(spec any) (ports.SpecParser, error)

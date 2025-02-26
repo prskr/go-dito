@@ -1,0 +1,32 @@
+{
+  "data": {
+    "allFilms": {
+      "films": [
+        {
+          "director": "George Lucas",
+          "title": "A New Hope"
+        },
+        {
+          "director": "Irvin Kershner",
+          "title": "The Empire Strikes Back"
+        },
+        {
+          "director": "Richard Marquand",
+          "title": "Return of the Jedi"
+        },
+        {
+          "director": "George Lucas",
+          "title": "The Phantom Menace"
+        },
+        {
+          "director": "George Lucas",
+          "title": "Attack of the Clones"
+        },
+        {
+          "director": "George Lucas",
+          "title": "Revenge of the Sith"
+        }
+      ]
+    }
+  }
+}

@@ -28,7 +28,7 @@ func (app *App) Execute(ctx context.Context) error {
 		app,
 		kong.Name("dito"),
 		kong.Description("go-dito"),
-		kong.Bind(ports.CWD(os.DirFS(wd))),
+		kong.BindTo(ports.CWD(os.DirFS(wd)), (*ports.CWD)(nil)),
 		kong.BindTo(ctx, (*context.Context)(nil)),
 	)
 

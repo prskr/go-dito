@@ -28,7 +28,6 @@ func init() {
 func ParseMatcher(filters []grammar.Call) (ports.RequestMatcher, error) {
 	compiledFilters := make([]ports.RequestMatcher, 0, len(filters))
 	for _, filterCall := range filters {
-
 		switch filterCall.Signature() {
 		case "http.method(string)":
 			method, _ := filterCall.Params[0].AsString()
@@ -66,8 +65,8 @@ func ParseMatcher(filters []grammar.Call) (ports.RequestMatcher, error) {
 
 			compiledFilters = append(compiledFilters, Query(queryKey, queryValue))
 		case "http.querypattern(string,string)":
-			queryKey, err := filterCall.Params[0].AsString()
-			queryValuePattern, err := filterCall.Params[1].AsString()
+			queryKey, _ := filterCall.Params[0].AsString()
+			queryValuePattern, _ := filterCall.Params[1].AsString()
 
 			queryPatternMatcher, err := QueryPattern(queryKey, queryValuePattern)
 			if err != nil {
@@ -76,13 +75,21 @@ func ParseMatcher(filters []grammar.Call) (ports.RequestMatcher, error) {
 
 			compiledFilters = append(compiledFilters, queryPatternMatcher)
 		case "http.jsonpath(string, string)":
-			jsonPath, err := filterCall.Params[0].AsString()
+			jsonPath, _ := filterCall.Params[0].AsString()
 			jsonPathMatcher, err := JsonPath(jsonPath, filterCall.Params[1].Value())
 			if err != nil {
 				return nil, err
 			}
 
 			compiledFilters = append(compiledFilters, jsonPathMatcher)
+		case "graphql.query(string)":
+			gqlQuery, _ := filterCall.Params[0].AsString()
+
+			compiledFilters = append(compiledFilters, GraphQlQueryOf(gqlQuery))
+		case "graphql.queryfromfile(string)":
+			filePath, _ := filterCall.Params[0].AsString()
+
+			compiledFilters = append(compiledFilters, GraphQlQueryFrom(filePath))
 		default:
 			return nil, fmt.Errorf("unknown filter call: %s", filterCall.String())
 		}

@@ -7,11 +7,10 @@ import (
 	"strings"
 
 	"github.com/ohler55/ojg/jp"
+	"github.com/ohler55/ojg/oj"
 
 	"github.com/prskr/go-dito/core/domain"
 	"github.com/prskr/go-dito/core/ports"
-
-	"github.com/ohler55/ojg/oj"
 )
 
 func Method(method string) ports.RequestMatcher {
