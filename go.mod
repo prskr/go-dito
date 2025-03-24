@@ -6,7 +6,7 @@ toolchain go1.23.2
 
 require (
 	github.com/alecthomas/kong v1.4.0
-	github.com/alecthomas/participle/v2 v2.1.1
+	github.com/alecthomas/participle/v2 v2.1.4
 	github.com/apple/pkl-go v0.8.1
 	github.com/ohler55/ojg v1.25.0
 	github.com/pb33f/libopenapi v0.19.1
