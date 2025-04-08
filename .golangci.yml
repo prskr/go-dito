@@ -1,49 +1,16 @@
-linter-settings:
-  dupl:
-    threshold: 100
-  funlen:
-    lines: 100
-    statements: 50
-  gci:
-    local-prefixes: github.com/prskr/go-dito
-    sections:
-      - standard
-      - default
-      - prefix(github.com/prskr/go-dito)
-      - alias
-      - blank
-      - dot
-    custom-order: true
-  goconst:
-    min-len: 2
-    min-occurrences: 2
-  gocyclo:
-    min-complexity: 15
-  goimports:
-    local-prefixes: github.com/prskr/go-dito
-  golint:
-    min-confidence: 0
-  importas:
-    no-unaliased: true
-  lll:
-    line-length: 140
-  misspell:
-    locale: US
-
+version: "2"
+run:
+  modules-download-mode: readonly
+  allow-parallel-runners: true
 linters:
-  disable-all: true
+  default: none
   enable:
-    - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - unused
     - cyclop
     - decorder
     - dogsled
     - dupl
     - err113
+    - errcheck
     - errname
     - errorlint
     - exhaustive
@@ -55,12 +22,10 @@ linters:
     - goconst
     - gocritic
     - gocyclo
-    - goerr113
-    - gofumpt
-    - goimports
     - gosec
+    - govet
+    - ineffassign
     - interfacebloat
-    # - intrange
     - lll
     - maintidx
     - nakedret
@@ -73,29 +38,73 @@ linters:
     - prealloc
     - predeclared
     - sloglint
-    - tenv
+    - staticcheck
     - testpackage
     - thelper
     - tparallel
     - unconvert
     - unparam
+    - unused
     - usestdlibvars
     - wastedassign
     - whitespace
-
-issues:
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - funlen
-        - cyclop
-        - gocognit
-        - goerr113
-        - gochecknoinits
-        - gochecknoglobals
-
-run:
-  skip-files: []
-  modules-download-mode: readonly
-  timeout: 5m
-  allow-parallel-runners: true
+  settings:
+    dupl:
+      threshold: 100
+    funlen:
+      lines: 100
+      statements: 50
+    goconst:
+      min-len: 2
+      min-occurrences: 2
+    gocyclo:
+      min-complexity: 15
+    importas:
+      no-unaliased: true
+    lll:
+      line-length: 140
+    misspell:
+      locale: US
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - cyclop
+          - err113
+          - funlen
+          - gochecknoglobals
+          - gochecknoinits
+          - gocognit
+        path: _test\.go
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/prskr/go-dito)
+        - alias
+        - blank
+        - dot
+      custom-order: true
+    goimports:
+      local-prefixes:
+        - github.com/prskr/go-dito
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

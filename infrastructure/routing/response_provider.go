@@ -65,6 +65,7 @@ func (f *FileProvider) Apply(writer http.ResponseWriter) {
 		sneakData, err := bufReader.Peek(sneakLength)
 		if err != nil {
 			http.Error(writer, err.Error(), http.StatusInternalServerError)
+			return
 		}
 
 		f.ContentType = http.DetectContentType(sneakData)
