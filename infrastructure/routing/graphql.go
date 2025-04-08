@@ -19,7 +19,9 @@ import (
 
 var (
 	_ ports.RequestMatcher   = (*GraphQlFileQuery)(nil)
+	_ ports.CwdInjectable    = (*GraphQlFileQuery)(nil)
 	_ ports.SchemaInjectable = (*GraphQlInlineQuery)(nil)
+	_ ports.SchemaInjectable = (*GraphQlFileQuery)(nil)
 )
 
 type graphQlMatcherBase struct {
