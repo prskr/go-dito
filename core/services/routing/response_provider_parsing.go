@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/prskr/go-dito/core/ports"
-	"github.com/prskr/go-dito/infrastructure/grammar"
+	"github.com/prskr/go-dito/core/services/grammar"
 )
 
 func ParseResponseProvider(call *grammar.Call) (ports.ResponseProvider, error) {

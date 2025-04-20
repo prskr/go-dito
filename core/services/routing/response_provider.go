@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"net/http"
+	"os"
 
 	"github.com/prskr/go-dito/core/ports"
 )
@@ -36,7 +37,6 @@ func File(status int, filePath, contentType string) ports.ResponseProvider {
 }
 
 var (
-	_ ports.CwdInjectable    = (*FileProvider)(nil)
 	_ ports.ResponseProvider = (*FileProvider)(nil)
 )
 
@@ -44,11 +44,10 @@ type FileProvider struct {
 	Status      int
 	FilePath    string
 	ContentType string
-	CWD         ports.CWD
 }
 
 func (f *FileProvider) Apply(writer http.ResponseWriter) {
-	file, err := f.CWD.Open(f.FilePath)
+	file, err := os.Open(f.FilePath)
 	if err != nil {
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
 		return
@@ -80,11 +79,7 @@ func (f *FileProvider) Apply(writer http.ResponseWriter) {
 	}
 }
 
-func (f *FileProvider) InjectCwd(cwd ports.CWD) {
-	f.CWD = cwd
-}
-
-func JSFile(cwd ports.CWD, status int, filePath string) ports.ResponseProvider {
+func JSFile(status int, filePath string) ports.ResponseProvider {
 	return ports.ResponseProviderFunc(func(writer http.ResponseWriter) {
 		writer.WriteHeader(http.StatusInternalServerError)
 	})

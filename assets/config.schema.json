@@ -1,0 +1,140 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://https://raw.githubusercontent.com/prskr/go-dito/refs/heads/main/assets/config.schema.json",
+    "title": "go-dito config schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "domains": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "const": "plain"
+                            },
+                            "rules": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "required": ["type", "rules"]
+                    },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "const": "openapi"
+                            },
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        "required": ["type", "schema"]
+                    },
+                    {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "const": "graphql"
+                            },
+                            "schemas": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "rules": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "required": ["type", "schemas", "rules"]
+                    }
+                ]
+            }
+        },
+        "server": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "host": {
+                    "type": "string",
+                    "default": "0.0.0.0"
+                },
+                "port": {
+                    "type": "number",
+                    "default": 3498
+                },
+                "serverOptions": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "readHeaderTimeout": {
+                            "type": "string",
+                            "default": "100ms",
+                            "pattern": "^\\d+(ns|us|µs|ms|s|m|h)$"
+                        },
+                        "shutdownTimeout": {
+                            "type": "string",
+                            "default": "10s",
+                            "pattern": "^\\d+(ns|us|µs|ms|s|m|h)$"
+                        }
+                    }
+                },
+                "requestOptions": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "maxBodySize": {
+                            "type": ["string", "number"],
+                            "default": "10mb",
+                            "pattern": "^\\d+(b|kb|mb){0,1}$"
+                        }
+                    }
+                }
+            }
+        },
+        "telemetry": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "logging": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "addSource": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "level": {
+                            "type": "string",
+                            "default": "info",
+                            "enum": ["debug", "info", "warn", "error"]
+                        },
+                        "format": {
+                            "type": "string",
+                            "default": "json",
+                            "enum": ["text", "json"]
+                        }
+                    }
+                },
+                "shutdownTimeout": {
+                    "type": "string",
+                    "default": "10s",
+                    "pattern": "^\\d+(ns|us|µs|ms|s|m|h)$"
+                }
+            }
+        }
+    }
+}

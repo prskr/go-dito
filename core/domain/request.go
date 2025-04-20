@@ -10,7 +10,9 @@ import (
 	"sync"
 )
 
-func NewRequest(orig *http.Request, maxContentLength int64) *IncomingRequest {
+const maxContentLength = 100_000_000
+
+func NewRequest(orig *http.Request) *IncomingRequest {
 	return &IncomingRequest{
 		Original:         orig,
 		MaxContentLength: maxContentLength,

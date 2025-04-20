@@ -1,0 +1,18 @@
+query FilmsAtSpecies($first: Int) {
+    allFilms(first: $first) {
+        films {
+            title
+            director
+            releaseDate
+            speciesConnection {
+                species {
+                    name
+                    classification
+                    homeworld {
+                        name
+                    }
+                }
+            }
+        }
+    }
+}

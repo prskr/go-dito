@@ -1,4 +1,4 @@
-package services
+package parsing
 
 import (
 	"context"
@@ -21,51 +21,41 @@ import (
 
 	"github.com/prskr/go-dito/core/ports"
 	http2 "github.com/prskr/go-dito/handlers/http"
-	"github.com/prskr/go-dito/infrastructure/config"
 	"github.com/prskr/go-dito/internal/maps"
 )
 
-var _ ports.SpecParser = (*OpenAPISpecParser)(nil)
+var _ ports.SpecParser = (*OpenAPI)(nil)
 
-const contentType = "application/json"
+const contentTypeJson = "application/json"
 
-func NewOpenAPISpecParser(spec *config.OpenApiSpec) (*OpenAPISpecParser, error) {
-	rawSchema, err := os.ReadFile(spec.SchemaPath)
+type OpenAPI struct {
+	Schema string `json:"schema"`
+}
+
+func (o OpenAPI) Handler(ctx context.Context) (http.Handler, error) {
+	rawSchema, err := os.ReadFile(o.Schema)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read schema file %s: %w", spec.SchemaPath, err)
+		return nil, fmt.Errorf("failed to read schema file %s: %w", o.Schema, err)
 	}
 
 	specDocument, err := libopenapi.NewDocument(rawSchema)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse schema file %s: %w", spec.SchemaPath, err)
+		return nil, fmt.Errorf("failed to parse schema file %s: %w", o.Schema, err)
 	}
 
-	return &OpenAPISpecParser{
-		Spec:          specDocument,
-		MockGenerator: renderer.NewMockGenerator(renderer.JSON),
-	}, nil
-}
-
-type OpenAPISpecParser struct {
-	Spec          libopenapi.Document
-	MockGenerator *renderer.MockGenerator
-}
-
-func (o OpenAPISpecParser) Handler(ctx context.Context) (http.Handler, error) {
 	mux := http.NewServeMux()
-
-	v := o.Spec.GetVersion()
+	v := specDocument.GetVersion()
 
 	switch {
 	case strings.HasPrefix(v, "2"):
-		if err := o.handleV2(ctx, mux); err != nil {
+		if err := o.handleV2(ctx, mux, specDocument); err != nil {
 			return nil, err
 		}
 
 		return mux, nil
 
 	case strings.HasPrefix(v, "3"):
-		model, errs := o.Spec.BuildV3Model()
+		model, errs := specDocument.BuildV3Model()
 		if errs != nil {
 			return nil, errors.Join(errs...)
 		}
@@ -87,7 +77,7 @@ func (o OpenAPISpecParser) Handler(ctx context.Context) (http.Handler, error) {
 					resp.ValidationErrors = append(resp.ValidationErrors, err.Error())
 				}
 
-				writer.Header().Set("Content-Type", contentType)
+				writer.Header().Set("Content-Type", contentTypeJson)
 				writer.WriteHeader(http.StatusBadRequest)
 				encoder := json.NewEncoder(writer)
 				_ = encoder.Encode(resp)
@@ -100,7 +90,7 @@ func (o OpenAPISpecParser) Handler(ctx context.Context) (http.Handler, error) {
 	}
 }
 
-func (o OpenAPISpecParser) handleV3(ctx context.Context, mux *http.ServeMux, model *libopenapi.DocumentModel[v3.Document]) error {
+func (o OpenAPI) handleV3(ctx context.Context, mux *http.ServeMux, model *libopenapi.DocumentModel[v3.Document]) error {
 	for path, ops := range maps.Iter(model.Model.Paths.PathItems) {
 		logger := slog.Default().With(slog.String("api", model.Model.Info.Title), slog.String("path", path))
 
@@ -119,7 +109,7 @@ func (o OpenAPISpecParser) handleV3(ctx context.Context, mux *http.ServeMux, mod
 					}
 
 					if statusCode >= http.StatusOK && statusCode < http.StatusMultipleChoices {
-						mediaType, present := responseValue.Content.Get(contentType)
+						mediaType, present := responseValue.Content.Get(contentTypeJson)
 						if !present {
 							logger.Warn("No JSON response defined")
 							continue
@@ -138,7 +128,7 @@ func (o OpenAPISpecParser) handleV3(ctx context.Context, mux *http.ServeMux, mod
 						if mediaType.Examples.IsZero() {
 							logger.Info("Configuring mock handler")
 							mockHandler := http2.OASSchemaMockHandler{
-								MockGenerator: o.MockGenerator,
+								MockGenerator: renderer.NewMockGenerator(renderer.JSON),
 								Schema:        mediaType.Schema.Schema(),
 								Status:        int(statusCode),
 							}
@@ -158,8 +148,8 @@ func (o OpenAPISpecParser) handleV3(ctx context.Context, mux *http.ServeMux, mod
 	return nil
 }
 
-func (o OpenAPISpecParser) handleV2(ctx context.Context, mux *http.ServeMux) error {
-	model, errs := o.Spec.BuildV2Model()
+func (o OpenAPI) handleV2(ctx context.Context, mux *http.ServeMux, spec libopenapi.Document) error {
+	model, errs := spec.BuildV2Model()
 	if errs != nil {
 		return errors.Join(errs...)
 	}
@@ -196,7 +186,7 @@ func (o OpenAPISpecParser) handleV2(ctx context.Context, mux *http.ServeMux) err
 						if responseValue.Examples == nil {
 							logger.Info("Configuring mock handler")
 							mockHandler := http2.OASSchemaMockHandler{
-								MockGenerator: o.MockGenerator,
+								MockGenerator: renderer.NewMockGenerator(renderer.JSON),
 								Schema:        responseValue.Schema.Schema(),
 								Status:        int(statusCode),
 							}

@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/prskr/go-dito/core/domain"
-	"github.com/prskr/go-dito/infrastructure/routing"
+	"github.com/prskr/go-dito/core/services/routing"
 )
 
 const (
@@ -63,7 +63,7 @@ func TestJsonPath(t *testing.T) {
 			assert.Equal(
 				t,
 				tt.wantMatch,
-				got.Matches(domain.NewRequest(tt.req, maxContentLength)),
+				got.Matches(domain.NewRequest(tt.req)),
 				"Matcher returned unexpected response",
 			)
 		})
