@@ -1,0 +1,2 @@
+schema: star_wars_schema.graphql
+documents: ['**/*.graphql', '**/*.gql']

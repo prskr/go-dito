@@ -7,7 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/alecthomas/kong v1.10.0
 	github.com/alecthomas/participle/v2 v2.1.4
-	github.com/apple/pkl-go v0.10.0
+	github.com/invopop/yaml v0.3.1
 	github.com/ohler55/ojg v1.26.3
 	github.com/pb33f/libopenapi v0.21.8
 	github.com/pb33f/libopenapi-validator v0.3.0
@@ -25,6 +25,7 @@ require (
 
 require (
 	github.com/agnivade/levenshtein v1.2.1 // indirect
+	github.com/apple/pkl-go v0.10.0 // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect

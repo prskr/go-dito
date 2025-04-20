@@ -10,8 +10,7 @@ import (
 var _ http.Handler = (*RulesHandler)(nil)
 
 type RulesHandler struct {
-	MaxContentLength int64
-	Handlers         []ports.RequestHandler
+	Handlers []ports.RequestHandler
 }
 
 func (r RulesHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
@@ -20,7 +19,7 @@ func (r RulesHandler) ServeHTTP(writer http.ResponseWriter, request *http.Reques
 
 	request = request.WithContext(ctx)
 
-	ir := domain.NewRequest(request, r.MaxContentLength)
+	ir := domain.NewRequest(request)
 
 	for _, h := range r.Handlers {
 		if handled := h.Handle(writer, ir); handled {

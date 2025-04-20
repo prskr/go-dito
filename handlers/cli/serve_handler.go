@@ -8,7 +8,6 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/apple/pkl-go/pkl"
 	"go.opentelemetry.io/contrib/exporters/autoexport"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel"
@@ -18,10 +17,8 @@ import (
 	"go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.10.0"
 
-	"github.com/prskr/go-dito/core/ports"
-	"github.com/prskr/go-dito/core/services"
+	"github.com/prskr/go-dito/core/services/config"
 	http2 "github.com/prskr/go-dito/handlers/http"
-	"github.com/prskr/go-dito/infrastructure/config"
 	"github.com/prskr/go-dito/infrastructure/httpx"
 	"github.com/prskr/go-dito/infrastructure/logging"
 )
@@ -30,24 +27,14 @@ type ServeHandler struct{}
 
 func (h *ServeHandler) Run(
 	ctx context.Context,
-	cfg *config.AppConfig,
+	cfg config.App,
 	logger *slog.Logger,
-	cwd ports.CWD,
 ) error {
 	domainHandler := make(http2.DomainHandler)
 
 	for d, a := range cfg.Domains {
-		parser, err := services.DefaultRegistry.ParserFor(a)
-		if err != nil {
-			return err
-		}
 
-		// inject dependencies
-		if cwdInjectable, ok := parser.(ports.CwdInjectable); ok {
-			cwdInjectable.InjectCwd(cwd)
-		}
-
-		if handler, err := parser.Handler(ctx); err != nil {
+		if handler, err := a.Handler(ctx); err != nil {
 			return err
 		} else {
 			domainHandler[d] = handler
@@ -56,8 +43,8 @@ func (h *ServeHandler) Run(
 
 	srv := http.Server{
 		Addr:              fmt.Sprintf("%s:%d", cfg.Server.Host, cfg.Server.Port),
-		ReadHeaderTimeout: cfg.Server.ServerOptions.ReadHeaderTimeout.GoDuration(),
-		Handler:           otelhttp.NewHandler(httpx.LoggingMiddleware(http.MaxBytesHandler(domainHandler, int64(cfg.Server.RequestOptions.MaxBodySize.ToUnit(pkl.Bytes).Value))), "API"),
+		ReadHeaderTimeout: cfg.Server.ServerOptions.ReadHeaderTimeout,
+		Handler:           otelhttp.NewHandler(httpx.LoggingMiddleware(http.MaxBytesHandler(domainHandler, cfg.Server.RequestOptions.MaxBodySize.Bytes())), "API"),
 		BaseContext: func(listener net.Listener) context.Context {
 			return logging.ContextWithLogger(ctx, logger)
 		},
@@ -73,7 +60,7 @@ func (h *ServeHandler) Run(
 
 	<-ctx.Done()
 
-	shutdownCtx, stop := context.WithTimeout(context.Background(), cfg.Server.ServerOptions.ShutdownTimeout.GoDuration())
+	shutdownCtx, stop := context.WithTimeout(context.Background(), cfg.Server.ServerOptions.ShutdownTimeout)
 	if err := srv.Shutdown(shutdownCtx); err != nil {
 		slog.Error("Failed to shutdown server", slog.String("error", err.Error()))
 	}
@@ -83,7 +70,7 @@ func (h *ServeHandler) Run(
 	return nil
 }
 
-func (h *ServeHandler) AfterApply(ctx context.Context, appCfg *config.AppConfig) error {
+func (h *ServeHandler) AfterApply(ctx context.Context, appCfg config.App) error {
 	otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(
 		propagation.TraceContext{},
 		propagation.Baggage{},
@@ -107,7 +94,7 @@ func (h *ServeHandler) AfterApply(ctx context.Context, appCfg *config.AppConfig)
 
 	go func() {
 		<-ctx.Done()
-		shutdownCtx, stop := context.WithTimeout(context.Background(), appCfg.Telemetry.ShutdownTimeout.GoDuration())
+		shutdownCtx, stop := context.WithTimeout(context.Background(), appCfg.Telemetry.ShutdownTimeout)
 		err := meterProvider.Shutdown(shutdownCtx)
 		stop()
 
@@ -129,7 +116,7 @@ func (h *ServeHandler) AfterApply(ctx context.Context, appCfg *config.AppConfig)
 
 	go func() {
 		<-ctx.Done()
-		shutdownCtx, stop := context.WithTimeout(context.Background(), appCfg.Telemetry.ShutdownTimeout.GoDuration())
+		shutdownCtx, stop := context.WithTimeout(context.Background(), appCfg.Telemetry.ShutdownTimeout)
 		err := traceProvider.Shutdown(shutdownCtx)
 		stop()
 

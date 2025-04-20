@@ -1,0 +1,65 @@
+# yaml-language-server: $schema=assets/config.schema.json
+server:
+  host: "0.0.0.0"
+  requestOptions:
+    maxBodySize: "500kb"
+
+domains:
+  localhost:3498:
+    type: plain
+    rules:
+      - >-
+        http.Method("GET")
+          -> http.Path("/api/v1/account/42")
+        => File("testdata/responses/sample.json", "application/json")
+      - >-
+        http.Method("POST")
+          -> http.Path("/api/v1/account/42/withdraw")
+        => Json(`{"name":"Ted.Tester"}`)
+      - >-
+        http.Method("POST")
+          -> http.JsonPath("[*].name", "Ted.Tester")
+        => Json(`{"name":"Ted.Tester"}`)
+      - => Status(500)
+      # For now we're skipping JS support
+      # - >-
+      #   http.Method("GET")
+      #     -> http.Path("/api/v1/account/42/withdraw")
+      #   => JSFile("testdata/scripts/account_withdraw.js")
+  v3.petstore:
+    type: openapi
+    schema: "testdata/petstore_v3.yaml"
+  v2.petstore:
+    type: openapi
+    schema: "testdata/petstore_v2.yaml"
+  star.wars:
+    type: graphql
+    schemas:
+      - "testdata/star_wars_schema.graphql"
+    rules:
+      - >-
+        http.Method("POST")
+          -> http.Path("/api/v1/graphql")
+          -> graphql.Query("query { allFilms { films { director title } } }")
+        => File("testdata/responses/star_wars_all_films.json", "application/json")
+      - >-
+        http.Method("POST")
+          -> http.Path("/api/v1/graphql")
+          -> graphql.QueryFromFile("testdata/queries/simple.gql")
+        => File(
+            "testdata/responses/star_wars_all_films_with_producers.json",
+            "application/json"
+          )
+      - >-
+        http.Method("POST")
+          -> http.Path("/api/v1/graphql")
+          -> graphql.QueryFromFile("testdata/queries/with_args.gql")
+        => File(
+            "testdata/responses/star_wars_all_films_with_producers.json",
+            "application/json"
+          )
+  "pmsh":
+    type: graphql
+    schemas:
+      - "schema.graphql"
+    rules: []

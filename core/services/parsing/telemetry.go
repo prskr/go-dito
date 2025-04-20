@@ -1,13 +1,12 @@
-package services
+package parsing
 
 import (
-	"go.opentelemetry.io/otel/metric"
-
 	"github.com/prskr/go-dito/infrastructure/telemetry"
+	"go.opentelemetry.io/otel/metric"
 )
 
 var (
-	meter           = telemetry.Meter("infrastructure/telemetry")
+	meter           = telemetry.Meter("core/services/routing")
 	oasRulesCounter metric.Int64Counter
 )
 

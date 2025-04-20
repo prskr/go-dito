@@ -3,7 +3,7 @@ package grammar_test
 import (
 	"testing"
 
-	"github.com/prskr/go-dito/infrastructure/grammar"
+	grammar2 "github.com/prskr/go-dito/core/services/grammar"
 )
 
 func TestParam_AsString(t *testing.T) {
@@ -20,14 +20,14 @@ func TestParam_AsString(t *testing.T) {
 		{
 			name: "Empty string",
 			fields: fields{
-				String: grammar.StringP(""),
+				String: grammar2.StringP(""),
 			},
 			want: "",
 		},
 		{
 			name: "Any string",
 			fields: fields{
-				String: grammar.StringP("Hello, world!"),
+				String: grammar2.StringP("Hello, world!"),
 			},
 			want: "Hello, world!",
 		},
@@ -40,7 +40,7 @@ func TestParam_AsString(t *testing.T) {
 		tt := tc
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			p := grammar.Param{
+			p := grammar2.Param{
 				String: tt.fields.String,
 			}
 			got, err := p.AsString()
@@ -69,14 +69,14 @@ func TestParam_AsInt(t *testing.T) {
 		{
 			name: "zero value",
 			fields: fields{
-				Int: grammar.IntP(0),
+				Int: grammar2.IntP(0),
 			},
 			want: 0,
 		},
 		{
 			name: "Any int",
 			fields: fields{
-				Int: grammar.IntP(42),
+				Int: grammar2.IntP(42),
 			},
 			want: 42,
 		},
@@ -89,7 +89,7 @@ func TestParam_AsInt(t *testing.T) {
 		tt := tc
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			p := grammar.Param{
+			p := grammar2.Param{
 				Int: tt.fields.Int,
 			}
 			got, err := p.AsInt()
