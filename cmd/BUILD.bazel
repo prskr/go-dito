@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "cmd",
+    srcs = ["app.go"],
+    importpath = "github.com/prskr/go-dito/cmd",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//core/ports",
+        "//core/services/config",
+        "//handlers/cli",
+        "@com_github_alecthomas_kong//:kong",
+    ],
+)

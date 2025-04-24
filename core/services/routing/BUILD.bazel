@@ -1,0 +1,48 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "routing",
+    srcs = [
+        "default_parser.go",
+        "gql_parser.go",
+        "graphql.go",
+        "matcher_chain.go",
+        "matchers.go",
+        "response_provider.go",
+        "response_provider_parsing.go",
+        "telemetry.go",
+    ],
+    importpath = "github.com/prskr/go-dito/core/services/routing",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//core/domain",
+        "//core/ports",
+        "//core/services/grammar",
+        "//infrastructure/logging",
+        "//infrastructure/telemetry",
+        "@com_github_ohler55_ojg//jp",
+        "@com_github_ohler55_ojg//oj",
+        "@com_github_vektah_gqlparser_v2//:gqlparser",
+        "@com_github_vektah_gqlparser_v2//ast",
+        "@com_github_vektah_gqlparser_v2//gqlerror",
+        "@io_opentelemetry_go_otel//attribute",
+        "@org_golang_x_exp//slices",
+    ],
+)
+
+go_test(
+    name = "routing_test",
+    srcs = [
+        "graphql_test.go",
+        "matchers_test.go",
+    ],
+    data = glob(["testdata/**"]),
+    embed = [":routing"],
+    embedsrcs = ["testdata/star_wars_schema.graphql"],
+    deps = [
+        "//core/domain",
+        "@com_github_stretchr_testify//assert",
+        "@com_github_vektah_gqlparser_v2//:gqlparser",
+        "@com_github_vektah_gqlparser_v2//ast",
+    ],
+)

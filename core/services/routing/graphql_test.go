@@ -2,11 +2,10 @@ package routing
 
 import (
 	"context"
+	_ "embed"
 	"fmt"
 	"io"
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 
@@ -17,16 +16,13 @@ import (
 	"github.com/prskr/go-dito/core/domain"
 )
 
+//go:embed testdata/star_wars_schema.graphql
+var rawStarWarsSchema []byte
+
 func TestGraphQlQuery_Matches(t *testing.T) {
-	cwd, err := os.Getwd()
-	assert.NoError(t, err)
-
-	rawSchema, err := os.ReadFile(filepath.Join(cwd, "..", "..", "testdata", "star_wars_schema.graphql"))
-	assert.NoError(t, err)
-
 	schema := gqlparser.MustLoadSchema(&ast.Source{
 		Name:    "star_wars_schema.graphql",
-		Input:   string(rawSchema),
+		Input:   string(rawStarWarsSchema),
 		BuiltIn: false,
 	})
 
@@ -45,7 +41,7 @@ func TestGraphQlQuery_Matches(t *testing.T) {
 			title
 			director
 		}
-	}	
+	}
 }`,
 			req: domain.NewRequest(graphQLRequest(
 				// language=graphql
@@ -55,8 +51,8 @@ func TestGraphQlQuery_Matches(t *testing.T) {
 			director
 			title
 		}
-	}	
-}`), 1<<31),
+	}
+}`)),
 			want: true,
 		},
 		{
@@ -71,14 +67,14 @@ func TestGraphQlQuery_Matches(t *testing.T) {
 				characters {
 					homeworld {
 						name
-						id					
+						id
 					}
 					birthYear
-					id				
+					id
 				}
 			}
 		}
-	}	
+	}
 }`,
 			req: domain.NewRequest(graphQLRequest(
 				// language=graphql
@@ -93,13 +89,13 @@ func TestGraphQlQuery_Matches(t *testing.T) {
 					birthYear
 					homeworld {
 						id
-						name					
-					}				
+						name
+					}
 				}
 			}
 		}
-	}	
-}`), 1<<31),
+	}
+}`)),
 			want: true,
 		},
 	}

@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "httpx",
+    srcs = ["middlewares.go"],
+    importpath = "github.com/prskr/go-dito/infrastructure/httpx",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//infrastructure/logging",
+        "@io_opentelemetry_go_otel_trace//:trace",
+    ],
+)

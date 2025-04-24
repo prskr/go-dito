@@ -1,0 +1,8 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "domain",
+    srcs = ["request.go"],
+    importpath = "github.com/prskr/go-dito/core/domain",
+    visibility = ["//visibility:public"],
+)

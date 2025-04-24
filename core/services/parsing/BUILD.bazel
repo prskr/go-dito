@@ -1,0 +1,30 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "parsing",
+    srcs = [
+        "graphql.go",
+        "openapi.go",
+        "plain.go",
+        "telemetry.go",
+    ],
+    importpath = "github.com/prskr/go-dito/core/services/parsing",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//core/ports",
+        "//core/services/grammar",
+        "//core/services/routing",
+        "//handlers/http",
+        "//infrastructure/telemetry",
+        "//internal/maps",
+        "@com_github_pb33f_libopenapi//:libopenapi",
+        "@com_github_pb33f_libopenapi//datamodel/high/v3:high",
+        "@com_github_pb33f_libopenapi//renderer",
+        "@com_github_pb33f_libopenapi_validator//:libopenapi-validator",
+        "@com_github_vektah_gqlparser_v2//:gqlparser",
+        "@com_github_vektah_gqlparser_v2//ast",
+        "@io_opentelemetry_go_contrib_instrumentation_net_http_otelhttp//:otelhttp",
+        "@io_opentelemetry_go_otel//attribute",
+        "@io_opentelemetry_go_otel_metric//:metric",
+    ],
+)

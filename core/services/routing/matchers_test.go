@@ -12,10 +12,6 @@ import (
 	"github.com/prskr/go-dito/core/services/routing"
 )
 
-const (
-	maxContentLength = 2 << 16
-)
-
 func TestJsonPath(t *testing.T) {
 	type args struct {
 		path string

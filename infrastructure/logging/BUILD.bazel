@@ -1,0 +1,11 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "logging",
+    srcs = [
+        "context.go",
+        "errror.go",
+    ],
+    importpath = "github.com/prskr/go-dito/infrastructure/logging",
+    visibility = ["//visibility:public"],
+)

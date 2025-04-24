@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "ports",
+    srcs = [
+        "matcher.go",
+        "os.go",
+        "specs.go",
+    ],
+    importpath = "github.com/prskr/go-dito/core/ports",
+    visibility = ["//visibility:public"],
+    deps = ["//core/domain"],
+)

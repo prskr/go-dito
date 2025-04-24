@@ -1,0 +1,31 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "cli",
+    srcs = [
+        "serve_handler.go",
+        "version.go",
+    ],
+    importpath = "github.com/prskr/go-dito/handlers/cli",
+    visibility = ["//visibility:public"],
+    x_defs = {
+        "github.com/prskr/go-dito/handlers/cli.Date": "{BUILD_TIMESTAMP}",
+        "github.com/prskr/go-dito/handlers/cli.Version": "{STABLE_GIT_TAG}",
+        "github.com/prskr/go-dito/handlers/cli.Commit": "{STABLE_GIT_COMMIT}",
+    },
+    deps = [
+        "//core/ports",
+        "//core/services/config",
+        "//handlers/http",
+        "//infrastructure/httpx",
+        "//infrastructure/logging",
+        "@io_opentelemetry_go_contrib_exporters_autoexport//:autoexport",
+        "@io_opentelemetry_go_contrib_instrumentation_net_http_otelhttp//:otelhttp",
+        "@io_opentelemetry_go_otel//:otel",
+        "@io_opentelemetry_go_otel//propagation",
+        "@io_opentelemetry_go_otel//semconv/v1.10.0:v1_10_0",
+        "@io_opentelemetry_go_otel_sdk//resource",
+        "@io_opentelemetry_go_otel_sdk//trace",
+        "@io_opentelemetry_go_otel_sdk_metric//:metric",
+    ],
+)
