@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "http",
+    srcs = [
+        "domain_handler.go",
+        "oas_schema_mock_handler.go",
+        "rules_handler.go",
+        "rules_request_handler.go",
+        "telemetry.go",
+    ],
+    importpath = "github.com/prskr/go-dito/handlers/http",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//core/domain",
+        "//core/ports",
+        "//infrastructure/telemetry",
+        "@com_github_pb33f_libopenapi//renderer",
+        "@io_opentelemetry_go_otel//attribute",
+        "@io_opentelemetry_go_otel_metric//:metric",
+        "@io_opentelemetry_go_otel_trace//:trace",
+    ],
+)

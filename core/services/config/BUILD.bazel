@@ -1,0 +1,24 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "config",
+    srcs = [
+        "app.go",
+        "datasize.go",
+        "domains.go",
+        "logging.go",
+    ],
+    importpath = "github.com/prskr/go-dito/core/services/config",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//core/ports",
+        "//core/services/parsing",
+        "@com_github_invopop_yaml//:yaml",
+    ],
+)
+
+go_test(
+    name = "config_test",
+    srcs = ["datasize_test.go"],
+    deps = [":config"],
+)

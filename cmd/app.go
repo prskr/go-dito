@@ -7,12 +7,14 @@ import (
 
 	"github.com/alecthomas/kong"
 
+	"github.com/prskr/go-dito/core/ports"
 	"github.com/prskr/go-dito/core/services/config"
 	"github.com/prskr/go-dito/handlers/cli"
 )
 
 type App struct {
-	Serve cli.ServeHandler `cmd:"" name:"serve" help:"Run mock server"`
+	Serve   cli.ServeHandler   `cmd:"" name:"serve" help:"Run mock server"`
+	Version cli.VersionHandler `cmd:"" name:"version" help:"Print version"`
 
 	ConfigPath string `name:"config" short:"c" default:"config.yaml" env:"DITO_CONFIG_PATH" help:"Path to config file" type:"existingfile"`
 }
@@ -23,6 +25,7 @@ func (app *App) Execute(ctx context.Context) error {
 		kong.Name("dito"),
 		kong.Description("go-dito"),
 		kong.BindTo(ctx, (*context.Context)(nil)),
+		kong.BindTo(os.Stdout, (*ports.STDOUT)(nil)),
 	)
 
 	return cliCtx.Run()

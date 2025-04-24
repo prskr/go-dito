@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "grammar",
+    srcs = [
+        "grammar.go",
+        "params.go",
+        "parsing.go",
+    ],
+    importpath = "github.com/prskr/go-dito/core/services/grammar",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_alecthomas_participle_v2//:participle"],
+)
+
+go_test(
+    name = "grammar_test",
+    srcs = [
+        "grammar_test.go",
+        "params_test.go",
+        "parsing_test.go",
+    ],
+    deps = [
+        ":grammar",
+        "@com_github_stretchr_testify//assert",
+    ],
+)
