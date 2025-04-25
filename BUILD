@@ -1,6 +1,6 @@
 load("@aspect_bazel_lib//lib:expand_template.bzl", "expand_template")
 load("@gazelle//:def.bzl", "gazelle")
-load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary", "go_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_cross_binary", "go_library", "nogo")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_image_index", "oci_load", "oci_push")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
@@ -10,6 +10,17 @@ ARCHS = [
     "arm64",
     "amd64",
 ]
+
+nogo(
+    name = "analyzers",
+    vet = True,
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_gordonklaus_ineffassign//pkg/ineffassign",
+        "@com_github_kisielk_errcheck//errcheck",
+        "@com_github_lasiar_canonicalheader:canonicalheader",
+    ],
+)
 
 go_binary(
     name = "dito",
