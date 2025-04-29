@@ -105,6 +105,8 @@ github.com/pb33f/libopenapi v0.18.6 h1:adxzZUnOBOAuKxFAIrtb1Qt8GA4XnDWUAxEnqiSoT
 github.com/pb33f/libopenapi v0.18.6/go.mod h1:qZRs2IHIcs9SjHPmQfSUCyeD3OY9JkLJQOuFxd0bYCY=
 github.com/pb33f/libopenapi v0.19.1 h1:NbRn0xEKL7xQE6ZK3COc77eg8Laj929QcG8/UFhmV/I=
 github.com/pb33f/libopenapi v0.19.1/go.mod h1:AwkjPGHUra2hWWpApJ1e+WPt0NjK6QZsQHsmaWfluvY=
+github.com/pb33f/libopenapi v0.21.10 h1:CSy2asSXbDYBGRw9O+VgIrkE+ZyTW408HDoieORw3jk=
+github.com/pb33f/libopenapi v0.21.10/go.mod h1:Gc8oQkjr2InxwumK0zOBtKN9gIlv9L2VmSVIUk2YxcU=
 github.com/pb33f/libopenapi-validator v0.2.2 h1:Pq3MYR7sWkEBt7gUDaot/Ir4IFm2QbUZLepGHgJ2aS4=
 github.com/pb33f/libopenapi-validator v0.2.2/go.mod h1:DpluvEfTfDwfqTN2sgvTH14dPbzKDtE/vYQgcx3iNMs=
 github.com/pb33f/libopenapi-validator v0.3.0 h1:xiIdPDETIPYICJn5RxD6SeGNdOBpe0ADHHW5NfNvypU=
@@ -125,6 +127,8 @@ github.com/santhosh-tekuri/jsonschema/v6 v6.0.1 h1:PKK9DyHxif4LZo+uQSgXNqs0jj5+x
 github.com/santhosh-tekuri/jsonschema/v6 v6.0.1/go.mod h1:JXeL+ps8p7/KNMjDQk3TCwPpBy0wYklyWTfbkIzdIFU=
 github.com/sergi/go-diff v1.1.0 h1:we8PVUC3FE2uYfodKH/nBHMSetSfHDR6scGdBi+erh0=
 github.com/sergi/go-diff v1.1.0/go.mod h1:STckp+ISIX8hZLjrqAeVduY0gWCT9IjLuqbuNXdaHfM=
+github.com/speakeasy-api/jsonpath v0.6.1 h1:FWbuCEPGaJTVB60NZg2orcYHGZlelbNJAcIk/JGnZvo=
+github.com/speakeasy-api/jsonpath v0.6.1/go.mod h1:ymb2iSkyOycmzKwbEAYPJV/yi2rSmvBCLZJcyD+VVWw=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
