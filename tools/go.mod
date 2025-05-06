@@ -2,7 +2,7 @@ module github.com/prskr/go-dito/tools
 
 go 1.23
 
-toolchain go1.23.3
+toolchain go1.24.3
 
 require github.com/apple/pkl-go v0.8.1
 
