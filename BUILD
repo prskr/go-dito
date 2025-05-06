@@ -18,7 +18,7 @@ nogo(
     deps = [
         "@com_github_gordonklaus_ineffassign//pkg/ineffassign",
         "@com_github_kisielk_errcheck//errcheck",
-        "@com_github_lasiar_canonicalheader:canonicalheader",
+        "@com_github_lasiar_canonicalheader//:canonicalheader",
     ],
 )
 

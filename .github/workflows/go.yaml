@@ -34,10 +34,23 @@ jobs:
         run: |
           crane auth login ghcr.io --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Expose GitHub Runtime
+        uses: crazy-max/ghaction-github-runtime@v3
+
+      - name: Start bazel cache
+        run: |
+          arch=$(uname -m | sed -E 's/x86_64/amd64/g')
+          os=$(uname -s | tr '[:upper:]' '[:lower:]')
+
+          sudo curl -o /usr/local/bin/bazel-remote https://code.icb4dc0.de/api/packages/prskr/generic/bazel-remote-$os-$arch/1.1.1/bazel-remote-$os-$arch
+          sudo chmod +x /usr/local/bin/bazel-remote
+          mkdir -p /tmp/bazel-remote
+          /usr/local/bin/bazel-remote --dir /tmp/bazel-remote --max_size 1000 --http_address=":3055" > /tmp/bazel_remote.log 2>&1 &
+
       - uses: bazel-contrib/setup-bazel@0.14.0
         with:
           bazelisk-cache: true
-          disk-cache: ${{ github.workflow }}
+          disk-cache: ${{ matrix.os }}-${{ github.workflow }}
           repository-cache: true
 
       - id: govulncheck
@@ -47,14 +60,18 @@ jobs:
           go-package: ./...
           repo-checkout: false
 
-      - name: bazel-github-actions-cache
-        uses: tsawada/bazel-github-actions-cache@v0
-
       - name: Test
         run: |
           bazel \
             --bazelrc=$GITHUB_WORKSPACE/.github/workflows/ci.bazelrc \
             test //...
+
+      - name: Archive Bazel-Remote logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: bazel-remote-logs-${{ matrix.os }}
+          path: |
+            /tmp/bazel_remote.log
 
       - name: Build image
         run: |
