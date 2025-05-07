@@ -42,7 +42,7 @@ jobs:
           arch=$(uname -m | sed -E 's/x86_64/amd64/g')
           os=$(uname -s | tr '[:upper:]' '[:lower:]')
 
-          sudo curl -o /usr/local/bin/bazel-remote https://code.icb4dc0.de/api/packages/prskr/generic/bazel-remote-$os-$arch/1.1.1/bazel-remote-$os-$arch
+          sudo curl -o /usr/local/bin/bazel-remote https://code.icb4dc0.de/api/packages/prskr/generic/bazel-remote-$os-$arch/1.1.3/bazel-remote-$os-$arch
           sudo chmod +x /usr/local/bin/bazel-remote
           mkdir -p /tmp/bazel-remote
           /usr/local/bin/bazel-remote --dir /tmp/bazel-remote --max_size 1000 --http_address=":3055" > /tmp/bazel_remote.log 2>&1 &
