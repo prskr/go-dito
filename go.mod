@@ -5,6 +5,7 @@ go 1.24
 toolchain go1.24.3
 
 require (
+	code.icb4dc0.de/prskr/bazel-golangci-lint-analyzers v0.0.0-20250508121110-976f361c56c5
 	github.com/alecthomas/kong v1.10.0
 	github.com/alecthomas/participle/v2 v2.1.4
 	github.com/gordonklaus/ineffassign v0.1.0
@@ -13,6 +14,7 @@ require (
 	github.com/ohler55/ojg v1.26.4
 	github.com/pb33f/libopenapi v0.21.10
 	github.com/pb33f/libopenapi-validator v0.4.1
+	github.com/sivchari/containedctx v1.0.3
 	github.com/stretchr/testify v1.10.0
 	github.com/vektah/gqlparser/v2 v2.5.27
 	go.opentelemetry.io/contrib/exporters/autoexport v0.60.0
@@ -25,7 +27,35 @@ require (
 	golang.org/x/exp v0.0.0-20250506013437-ce4c2cf36ca6
 )
 
-require github.com/go-toolsmith/astcast v1.1.0 // indirect
+tool (
+	github.com/go-courier/husky/cmd/husky
+	mvdan.cc/gofumpt
+)
+
+require (
+	github.com/Djarvur/go-err113 v0.1.0 // indirect
+	github.com/fatih/color v1.13.0 // indirect
+	github.com/go-courier/husky v1.8.1 // indirect
+	github.com/go-courier/semver v1.0.1 // indirect
+	github.com/go-toolsmith/astcast v1.1.0 // indirect
+	github.com/gobwas/glob v0.2.3 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
+	github.com/gostaticanalysis/analysisutil v0.7.1 // indirect
+	github.com/gostaticanalysis/comment v1.5.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/karamaru-alpha/copyloopvar v1.2.1 // indirect
+	github.com/kkHAIKE/contextcheck v1.1.6 // indirect
+	github.com/mattn/go-colorable v0.1.12 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/pelletier/go-toml/v2 v2.0.0-beta.6 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/spf13/cobra v1.3.0 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
+	golang.org/x/term v0.32.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
+	mvdan.cc/gofumpt v0.8.0 // indirect
+	mvdan.cc/sh/v3 v3.4.2 // indirect
+)
 
 require (
 	github.com/agnivade/levenshtein v1.2.1 // indirect
@@ -80,5 +110,5 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250505200425-f936aa4a68b2 // indirect
 	google.golang.org/grpc v1.72.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gopkg.in/yaml.v3 v3.0.1
 )

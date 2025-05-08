@@ -36,9 +36,7 @@ func File(status int, filePath, contentType string) ports.ResponseProvider {
 	}
 }
 
-var (
-	_ ports.ResponseProvider = (*FileProvider)(nil)
-)
+var _ ports.ResponseProvider = (*FileProvider)(nil)
 
 type FileProvider struct {
 	Status      int

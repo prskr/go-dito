@@ -20,13 +20,21 @@ import (
 	"go.opentelemetry.io/otel/metric"
 
 	"github.com/prskr/go-dito/core/ports"
+	"github.com/prskr/go-dito/core/services/grammar"
+	"github.com/prskr/go-dito/core/services/routing"
 	http2 "github.com/prskr/go-dito/handlers/http"
+	"github.com/prskr/go-dito/infrastructure/mapping"
 	"github.com/prskr/go-dito/internal/maps"
 )
 
 var _ ports.SpecParser = (*OpenAPI)(nil)
 
-const contentTypeJson = "application/json"
+const (
+	contentTypeJson         = "application/json"
+	exampleRuleExtensionKey = "x-dito/when"
+)
+
+var ErrUnsupportedSpecVersion = errors.New("unsupported spec version")
 
 type OpenAPI struct {
 	Schema string `json:"schema"`
@@ -86,11 +94,13 @@ func (o OpenAPI) Handler(ctx context.Context) (http.Handler, error) {
 			mux.ServeHTTP(writer, request)
 		}), nil
 	default:
-		return nil, fmt.Errorf("unsupported version: %s", v)
+		return nil, fmt.Errorf("%w: %q", ErrUnsupportedSpecVersion, v)
 	}
 }
 
 func (o OpenAPI) handleV3(ctx context.Context, mux *http.ServeMux, model *libopenapi.DocumentModel[v3.Document]) error {
+	parser := routing.DefaultParser{}
+
 	for path, ops := range maps.Iter(model.Model.Paths.PathItems) {
 		logger := slog.Default().With(slog.String("api", model.Model.Info.Title), slog.String("path", path))
 
@@ -135,7 +145,37 @@ func (o OpenAPI) handleV3(ctx context.Context, mux *http.ServeMux, model *libope
 
 							mux.Handle(pattern, otelhttp.WithRouteTag(pattern, mockHandler))
 						} else {
-							// TODO parse rule and configure handler
+							mockHandler := http2.OASSchemaExampleHandler{
+								FallbackStatus: int(statusCode),
+							}
+
+							for _, example := range maps.Iter(mediaType.Examples) {
+								mappedJson, err := mapping.YamlToJson(example.Value)
+								if err != nil {
+									return err
+								}
+
+								if rawRule, present := example.Extensions.Get(exampleRuleExtensionKey); present {
+									filters, err := grammar.Parse[grammar.Filters](rawRule.Value)
+									if err != nil {
+										return fmt.Errorf("parsing example filter: %w", err)
+									}
+
+									reqMatcher, err := parser.ParseMatchers(filters.Chain)
+									if err != nil {
+										return fmt.Errorf("parsing example filter: %w", err)
+									}
+
+									mockHandler.Handlers = append(mockHandler.Handlers, http2.RulesRequestHandler{
+										Matcher:          reqMatcher,
+										ResponseProvider: routing.Json(int(statusCode), string(mappedJson)),
+									})
+								} else {
+									mockHandler.FallbackValues = append(mockHandler.FallbackValues, mappedJson)
+								}
+							}
+
+							mux.Handle(pattern, otelhttp.WithRouteTag(pattern, mockHandler))
 						}
 
 						break

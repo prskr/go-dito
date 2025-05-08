@@ -19,7 +19,6 @@ type Plain struct {
 }
 
 func (p Plain) Handler(context.Context) (http.Handler, error) {
-
 	var handlers []ports.RequestHandler
 
 	var parser routing.DefaultParser

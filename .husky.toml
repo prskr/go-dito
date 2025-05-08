@@ -1,0 +1,12 @@
+[hooks]
+
+pre-commit = [
+    "bazel run @rules_go//go -- mod tidy",
+    "bazel run @rules_go//go -- tool husky lint-staged",
+    "bazel build //...",
+]
+
+commit-msg = ["bazel run @rules_go//go -- tool husky lint-commit"]
+
+[lint-staged]
+"*.go" = ["bazel run @rules_go//go -- tool gofumpt -l -w"]

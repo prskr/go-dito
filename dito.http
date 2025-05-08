@@ -1,2 +1,13 @@
 GET http://localhost:3498/pet/findByStatus
 Host: petstore
+
+###
+
+PUT http://localhost:3498/pet
+Host: v3.petstore
+Content-Type: application/json
+
+{
+    "name": "doggie",
+    "photoUrls": []
+}

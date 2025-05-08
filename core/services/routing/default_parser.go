@@ -1,12 +1,18 @@
 package routing
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"slices"
 
 	"github.com/prskr/go-dito/core/ports"
 	"github.com/prskr/go-dito/core/services/grammar"
+)
+
+var (
+	ErrNotAValidHTTPMethod = errors.New("not a valid HTTP method")
+	ErrUnknownFilter       = errors.New("unknown filter")
 )
 
 var httpMethods = []string{
@@ -46,7 +52,7 @@ func (DefaultParser) ParseMatcher(filterCall grammar.Call) (ports.RequestMatcher
 		method, _ := filterCall.Params[0].AsString()
 		_, found := slices.BinarySearch(httpMethods, method)
 		if !found {
-			return nil, fmt.Errorf("method '%s' is not a valid HTTP method", method)
+			return nil, fmt.Errorf("%w: %q", ErrNotAValidHTTPMethod, method)
 		}
 
 		return Method(method), nil
@@ -86,6 +92,6 @@ func (DefaultParser) ParseMatcher(filterCall grammar.Call) (ports.RequestMatcher
 
 		return jsonPathMatcher, nil
 	default:
-		return nil, fmt.Errorf("unknown filter call: %s", filterCall.String())
+		return nil, fmt.Errorf("%w: %s", ErrUnknownFilter, filterCall.String())
 	}
 }

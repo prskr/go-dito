@@ -5,7 +5,11 @@ import (
 	"log/slog"
 )
 
-var loggerKey struct{}
+var loggerKey = struct {
+	key string
+}{
+	key: "logger",
+}
 
 func ContextWithLogger(ctx context.Context, logger *slog.Logger) context.Context {
 	return context.WithValue(ctx, loggerKey, logger)

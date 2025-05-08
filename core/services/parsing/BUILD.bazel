@@ -15,6 +15,7 @@ go_library(
         "//core/services/grammar",
         "//core/services/routing",
         "//handlers/http",
+        "//infrastructure/mapping",
         "//infrastructure/telemetry",
         "//internal/maps",
         "@com_github_pb33f_libopenapi//:libopenapi",

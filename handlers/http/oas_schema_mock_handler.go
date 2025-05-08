@@ -2,9 +2,12 @@ package http
 
 import (
 	"log/slog"
+	"math/rand/v2"
 	"net/http"
 
 	"github.com/pb33f/libopenapi/renderer"
+	"github.com/prskr/go-dito/core/domain"
+	"github.com/prskr/go-dito/core/ports"
 )
 
 var _ http.Handler = (*OASSchemaMockHandler)(nil)
@@ -31,4 +34,40 @@ func (h OASSchemaMockHandler) ServeHTTP(writer http.ResponseWriter, req *http.Re
 	if _, err := writer.Write(raw); err != nil {
 		slog.Warn("Failed to write mock response")
 	}
+}
+
+var _ http.Handler = (*OASSchemaExampleHandler)(nil)
+
+type OASSchemaExampleHandler struct {
+	Handlers       []ports.RequestHandler
+	FallbackStatus int
+	FallbackValues [][]byte
+}
+
+func (o OASSchemaExampleHandler) ServeHTTP(writer http.ResponseWriter, req *http.Request) {
+	ctx, returnExampleSpan := tracer.Start(req.Context(), "ReturnExample")
+	defer returnExampleSpan.End()
+
+	req = req.WithContext(ctx)
+	ir := domain.NewRequest(req)
+
+	for _, handler := range o.Handlers {
+		if handled := handler.Handle(writer, ir); handled {
+			return
+		}
+	}
+
+	returnExampleSpan.AddEvent("NoRuleMatched")
+
+	if fallbackValueCount := len(o.FallbackValues); fallbackValueCount != 0 {
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(o.FallbackStatus)
+
+		_, _ = writer.Write(o.FallbackValues[rand.N(len(o.FallbackValues))])
+		return
+	}
+
+	returnExampleSpan.AddEvent("NoFallbackValue")
+
+	http.NotFound(writer, req)
 }

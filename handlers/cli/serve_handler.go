@@ -33,7 +33,6 @@ func (h *ServeHandler) Run(
 	domainHandler := make(http2.DomainHandler)
 
 	for d, a := range cfg.Domains {
-
 		if handler, err := a.Handler(ctx); err != nil {
 			return err
 		} else {
@@ -61,6 +60,7 @@ func (h *ServeHandler) Run(
 	<-ctx.Done()
 
 	shutdownCtx, stop := context.WithTimeout(context.Background(), cfg.Server.ServerOptions.ShutdownTimeout)
+	//nolint:contextcheck
 	if err := srv.Shutdown(shutdownCtx); err != nil {
 		slog.Error("Failed to shutdown server", slog.String("error", err.Error()))
 	}
@@ -86,6 +86,7 @@ func (h *ServeHandler) AfterApply(ctx context.Context, appCfg config.App) error 
 		return fmt.Errorf("failed to create metric reader: %w", err)
 	}
 
+	//nolint:contextcheck
 	meterProvider := metric.NewMeterProvider(
 		metric.WithReader(metricReader),
 		metric.WithResource(res),
@@ -95,6 +96,7 @@ func (h *ServeHandler) AfterApply(ctx context.Context, appCfg config.App) error 
 	go func() {
 		<-ctx.Done()
 		shutdownCtx, stop := context.WithTimeout(context.Background(), appCfg.Telemetry.ShutdownTimeout)
+		//nolint:contextcheck
 		err := meterProvider.Shutdown(shutdownCtx)
 		stop()
 
@@ -109,7 +111,9 @@ func (h *ServeHandler) AfterApply(ctx context.Context, appCfg config.App) error 
 	}
 
 	traceProvider := trace.NewTracerProvider(
+		//nolint:contextcheck
 		trace.WithBatcher(spanExporter),
+		//nolint:contextcheck
 		trace.WithResource(res),
 	)
 	otel.SetTracerProvider(traceProvider)
@@ -117,6 +121,7 @@ func (h *ServeHandler) AfterApply(ctx context.Context, appCfg config.App) error 
 	go func() {
 		<-ctx.Done()
 		shutdownCtx, stop := context.WithTimeout(context.Background(), appCfg.Telemetry.ShutdownTimeout)
+		//nolint:contextcheck
 		err := traceProvider.Shutdown(shutdownCtx)
 		stop()
 

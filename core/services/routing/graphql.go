@@ -17,12 +17,12 @@ import (
 	"github.com/prskr/go-dito/infrastructure/logging"
 )
 
-var ignoredSelections = []string{
-	"__typename",
-}
-
 var (
-	_ ports.RequestMatcher = (*GraphQlFileQuery)(nil)
+	ignoredSelections = []string{
+		"__typename",
+	}
+	_              ports.RequestMatcher = (*GraphQlFileQuery)(nil)
+	errSchemaIsNil                      = errors.New("schema is nil")
 )
 
 type graphQlMatcherBase struct {
@@ -35,7 +35,7 @@ func (g graphQlMatcherBase) Matches(req *domain.IncomingRequest) bool {
 	defer span.End()
 
 	if g.Schema == nil {
-		span.RecordError(errors.New("nil schema"))
+		span.RecordError(errSchemaIsNil)
 		return false
 	}
 
@@ -102,9 +102,7 @@ func (g *GraphQlInlineQuery) InjectSchema(schema *ast.Schema) error {
 	return nil
 }
 
-var (
-	_ ports.RequestMatcher = (*GraphQlFileQuery)(nil)
-)
+var _ ports.RequestMatcher = (*GraphQlFileQuery)(nil)
 
 func GraphQlQueryFrom(schema *ast.Schema, filePath string) ports.RequestMatcher {
 	return &GraphQlFileQuery{

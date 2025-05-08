@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "mapping",
+    srcs = ["yaml_to_json.go"],
+    importpath = "github.com/prskr/go-dito/infrastructure/mapping",
+    visibility = ["//visibility:public"],
+    deps = ["@in_gopkg_yaml_v3//:yaml_v3"],
+)
+
+go_test(
+    name = "mapping_test",
+    srcs = ["yaml_to_json_test.go"],
+    embed = [":mapping"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@in_gopkg_yaml_v3//:yaml_v3",
+    ],
+)

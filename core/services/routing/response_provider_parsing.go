@@ -1,12 +1,15 @@
 package routing
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
 	"github.com/prskr/go-dito/core/ports"
 	"github.com/prskr/go-dito/core/services/grammar"
 )
+
+var ErrUnknownResponseProvider = errors.New("unknown response provider")
 
 func ParseResponseProvider(call *grammar.Call) (ports.ResponseProvider, error) {
 	switch call.Signature() {
@@ -41,6 +44,6 @@ func ParseResponseProvider(call *grammar.Call) (ports.ResponseProvider, error) {
 
 		return File(status, filePath, contentType), nil
 	default:
-		return nil, fmt.Errorf("unknown response provider '%s'", call.String())
+		return nil, fmt.Errorf("%w: %q", ErrUnknownResponseProvider, call.String())
 	}
 }

@@ -19,6 +19,10 @@ nogo(
         "@com_github_gordonklaus_ineffassign//pkg/ineffassign",
         "@com_github_kisielk_errcheck//errcheck",
         "@com_github_lasiar_canonicalheader//:canonicalheader",
+        "@com_github_sivchari_containedctx//:containedctx",
+        "@de_icb4dc0_code_prskr_bazel_golangci_lint_analyzers//contextcheck",
+        "@de_icb4dc0_code_prskr_bazel_golangci_lint_analyzers//copyloopvar",
+        "@de_icb4dc0_code_prskr_bazel_golangci_lint_analyzers//err113",
     ],
 )
 

@@ -5,9 +5,7 @@ import (
 	"github.com/prskr/go-dito/core/ports"
 )
 
-var (
-	_ ports.RequestMatcher = (RequestMatcherChain)(nil)
-)
+var _ ports.RequestMatcher = (RequestMatcherChain)(nil)
 
 type RequestMatcherChain []ports.RequestMatcher
 
