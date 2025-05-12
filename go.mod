@@ -12,7 +12,7 @@ require (
 	github.com/invopop/yaml v0.3.1
 	github.com/lasiar/canonicalheader v1.1.2
 	github.com/ohler55/ojg v1.26.4
-	github.com/pb33f/libopenapi v0.21.10
+	github.com/pb33f/libopenapi v0.21.11
 	github.com/pb33f/libopenapi-validator v0.4.1
 	github.com/sivchari/containedctx v1.0.3
 	github.com/stretchr/testify v1.10.0

@@ -415,6 +415,8 @@ github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FI
 github.com/pascaldekloe/goe v0.1.0/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
 github.com/pb33f/libopenapi v0.21.10 h1:CSy2asSXbDYBGRw9O+VgIrkE+ZyTW408HDoieORw3jk=
 github.com/pb33f/libopenapi v0.21.10/go.mod h1:Gc8oQkjr2InxwumK0zOBtKN9gIlv9L2VmSVIUk2YxcU=
+github.com/pb33f/libopenapi v0.21.11 h1:vY979cdd8pw5podxcDZDs1edF1IiYg+1cRxTryhv+Ew=
+github.com/pb33f/libopenapi v0.21.11/go.mod h1:Gc8oQkjr2InxwumK0zOBtKN9gIlv9L2VmSVIUk2YxcU=
 github.com/pb33f/libopenapi-validator v0.4.1 h1:bqI7QBtudrl7LyHmhD1ZC4uVRRNlxv0WTPKT9m51UlU=
 github.com/pb33f/libopenapi-validator v0.4.1/go.mod h1:NdRLwU55JM2w23zoYlwSLcRY+1xWAr3gLQAFbzHpcKI=
 github.com/pelletier/go-toml v1.9.4/go.mod h1:u1nR/EPcESfeI/szUZKdtJ0xRNbUoANCkoOuaOx1Y+c=
