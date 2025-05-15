@@ -6,7 +6,7 @@ toolchain go1.24.3
 
 require (
 	code.icb4dc0.de/prskr/bazel-golangci-lint-analyzers v0.0.0-20250508121110-976f361c56c5
-	github.com/alecthomas/kong v1.10.0
+	github.com/alecthomas/kong v1.11.0
 	github.com/alecthomas/participle/v2 v2.1.4
 	github.com/gordonklaus/ineffassign v0.1.0
 	github.com/invopop/yaml v0.3.1
