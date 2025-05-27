@@ -47,7 +47,7 @@ jobs:
           mkdir -p /tmp/bazel-remote
           /usr/local/bin/bazel-remote --dir /tmp/bazel-remote --max_size 1000 --http_address=":3055" > /tmp/bazel_remote.log 2>&1 &
 
-      - uses: bazel-contrib/setup-bazel@0.14.0
+      - uses: bazel-contrib/setup-bazel@0.15.0
         with:
           bazelisk-cache: true
           disk-cache: ${{ matrix.os }}-${{ github.workflow }}
