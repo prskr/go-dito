@@ -12,8 +12,8 @@ require (
 	github.com/invopop/yaml v0.3.1
 	github.com/lasiar/canonicalheader v1.1.2
 	github.com/ohler55/ojg v1.26.4
-	github.com/pb33f/libopenapi v0.21.11
-	github.com/pb33f/libopenapi-validator v0.4.1
+	github.com/pb33f/libopenapi v0.22.2
+	github.com/pb33f/libopenapi-validator v0.4.7
 	github.com/sivchari/containedctx v1.0.3
 	github.com/stretchr/testify v1.10.0
 	github.com/vektah/gqlparser/v2 v2.5.27
@@ -81,7 +81,7 @@ require (
 	github.com/prometheus/common v0.63.0 // indirect
 	github.com/prometheus/procfs v0.16.1 // indirect
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.1 // indirect
-	github.com/speakeasy-api/jsonpath v0.6.1 // indirect
+	github.com/speakeasy-api/jsonpath v0.6.2 // indirect
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.9-0.20240815153524-6ea36470d1bd // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
