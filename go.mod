@@ -11,7 +11,7 @@ require (
 	github.com/gordonklaus/ineffassign v0.1.0
 	github.com/invopop/yaml v0.3.1
 	github.com/lasiar/canonicalheader v1.1.2
-	github.com/ohler55/ojg v1.26.4
+	github.com/ohler55/ojg v1.26.6
 	github.com/pb33f/libopenapi v0.22.2
 	github.com/pb33f/libopenapi-validator v0.4.7
 	github.com/sivchari/containedctx v1.0.3
