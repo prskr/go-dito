@@ -26,7 +26,6 @@ go_library(
         "@com_github_vektah_gqlparser_v2//ast",
         "@com_github_vektah_gqlparser_v2//gqlerror",
         "@io_opentelemetry_go_otel//attribute",
-        "@org_golang_x_exp//slices",
     ],
 )
 

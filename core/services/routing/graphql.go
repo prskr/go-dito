@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 	"log/slog"
+	"slices"
 	"strings"
 
 	"github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 	"github.com/vektah/gqlparser/v2/gqlerror"
 	"go.opentelemetry.io/otel/attribute"
-	"golang.org/x/exp/slices"
 
 	"github.com/prskr/go-dito/core/domain"
 	"github.com/prskr/go-dito/core/ports"
