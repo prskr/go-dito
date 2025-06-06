@@ -2,7 +2,7 @@ module github.com/prskr/go-dito
 
 go 1.24
 
-toolchain go1.24.3
+toolchain go1.24.4
 
 require (
 	code.icb4dc0.de/prskr/bazel-golangci-lint-analyzers v0.0.0-20250508121110-976f361c56c5
