@@ -1,6 +1,6 @@
 module github.com/prskr/go-dito
 
-go 1.24
+go 1.24.0
 
 toolchain go1.24.4
 
@@ -12,10 +12,10 @@ require (
 	github.com/invopop/yaml v0.3.1
 	github.com/lasiar/canonicalheader v1.1.2
 	github.com/ohler55/ojg v1.26.6
-	github.com/pb33f/libopenapi v0.22.3
+	github.com/pb33f/libopenapi v0.34.1
 	github.com/pb33f/libopenapi-validator v0.4.7
 	github.com/sivchari/containedctx v1.0.3
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	github.com/vektah/gqlparser/v2 v2.5.27
 	go.opentelemetry.io/contrib/exporters/autoexport v0.61.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.61.0
@@ -48,10 +48,13 @@ require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/onsi/gomega v1.19.0 // indirect
+	github.com/pb33f/jsonpath v0.8.1 // indirect
+	github.com/pb33f/ordered-map/v2 v2.3.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.0-beta.6 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/cobra v1.3.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	go.yaml.in/yaml/v4 v4.0.0-rc.4 // indirect
 	golang.org/x/term v0.32.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	mvdan.cc/gofumpt v0.8.0 // indirect
@@ -100,7 +103,7 @@ require (
 	go.opentelemetry.io/proto/otlp v1.6.0 // indirect
 	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/net v0.40.0 // indirect
-	golang.org/x/sync v0.14.0 // indirect
+	golang.org/x/sync v0.19.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
 	golang.org/x/text v0.25.0 // indirect
 	golang.org/x/tools v0.33.0 // indirect
