@@ -1,11 +1,9 @@
 module github.com/prskr/go-dito
 
-go 1.24
-
-toolchain go1.24.4
+go 1.25.0
 
 require (
-	code.icb4dc0.de/prskr/bazel-golangci-lint-analyzers v0.0.0-20250508121110-976f361c56c5
+	code.icb4dc0.de/prskr/bazel-golangci-lint-analyzers v0.0.0-20260428185338-e056df11c86a
 	github.com/alecthomas/kong v1.11.0
 	github.com/alecthomas/participle/v2 v2.1.4
 	github.com/gordonklaus/ineffassign v0.1.0
@@ -32,7 +30,7 @@ tool (
 )
 
 require (
-	github.com/Djarvur/go-err113 v0.1.0 // indirect
+	github.com/Djarvur/go-err113 v0.1.1 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.2 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/go-courier/husky v1.8.1 // indirect
@@ -43,7 +41,7 @@ require (
 	github.com/gostaticanalysis/analysisutil v0.7.1 // indirect
 	github.com/gostaticanalysis/comment v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
-	github.com/karamaru-alpha/copyloopvar v1.2.1 // indirect
+	github.com/karamaru-alpha/copyloopvar v1.2.2 // indirect
 	github.com/kkHAIKE/contextcheck v1.1.6 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
@@ -52,7 +50,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/cobra v1.3.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/term v0.32.0 // indirect
+	golang.org/x/term v0.42.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	mvdan.cc/gofumpt v0.8.0 // indirect
 	mvdan.cc/sh/v3 v3.4.2 // indirect
@@ -98,12 +96,12 @@ require (
 	go.opentelemetry.io/otel/log v0.12.2 // indirect
 	go.opentelemetry.io/otel/sdk/log v0.12.2 // indirect
 	go.opentelemetry.io/proto/otlp v1.6.0 // indirect
-	golang.org/x/mod v0.24.0 // indirect
-	golang.org/x/net v0.40.0 // indirect
-	golang.org/x/sync v0.14.0 // indirect
-	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/text v0.25.0 // indirect
-	golang.org/x/tools v0.33.0 // indirect
+	golang.org/x/mod v0.35.0 // indirect
+	golang.org/x/net v0.53.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
+	golang.org/x/sys v0.43.0 // indirect
+	golang.org/x/text v0.36.0 // indirect
+	golang.org/x/tools v0.44.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250519155744-55703ea1f237 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250519155744-55703ea1f237 // indirect
 	google.golang.org/grpc v1.72.1 // indirect
