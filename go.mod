@@ -15,8 +15,8 @@ require (
 	github.com/pb33f/libopenapi v0.22.3
 	github.com/pb33f/libopenapi-validator v0.4.7
 	github.com/sivchari/containedctx v1.0.3
-	github.com/stretchr/testify v1.10.0
-	github.com/vektah/gqlparser/v2 v2.5.27
+	github.com/stretchr/testify v1.11.1
+	github.com/vektah/gqlparser/v2 v2.5.35
 	go.opentelemetry.io/contrib/exporters/autoexport v0.61.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.61.0
 	go.opentelemetry.io/otel v1.36.0
